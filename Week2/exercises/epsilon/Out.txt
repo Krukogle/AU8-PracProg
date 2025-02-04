@@ -1,0 +1,31 @@
+Max representable int = 2147483647
+Built-in max int      = 2147483647
+
+Min representable int = -2147483648
+Built-in min int      = -2147483648
+
+Machine epsilon (double) = 2.22044604925031E-16
+Logical epsilon 2^(-52)  = 2.22044604925031E-16
+
+Machine epsilon (float)  = 1.192093E-07
+Logical epsilon 2^(-23)  = 1.19209289550781E-07
+
+The constants defined are: 
+ - ε = 2.22044604925031E-16, 
+ - ε/2 = 1.11022302462516E-16, 
+ - a = 1+ε/2+ε/2 = 1, 
+ - b = ε/2+ε/2+1 = 1. 
+
+Is a = b? False 
+Is a > 1? False 
+Is b > 1? True
+
+The result is due to the order of operations. Since ε is the smallest representable double, 1+ε/2 is rounded to 1 each time.
+On the other hand, ε/2+ε/2=ε, which is the smallest representable number. Therefore, adding it to 1 gives something larger than 1. 
+
+The constants defined are: 
+ - d1 = 0.1+0.1+0.1+0.1+0.1+0.1+0.1+0.1 = 7.999999999999999e-001, 
+ - d2 = 8*0.1 = 8.000000000000000e-001. 
+
+Is d1 = d2? False
+Is d1 = d2 approximately? True
