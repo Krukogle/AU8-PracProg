@@ -1,0 +1,15 @@
+set terminal pdfcairo enhanced color font "Helvetica,12" size 5in,4in
+set output "cgamma.pdf"
+
+set title "Absolute Value of Gamma Function |Γ(z)|"
+set xlabel "Re({/:Italic z})"
+set ylabel "Im({/:Italic z})"
+set zlabel "|Γ({/:Italic z})|" rotate by 90
+set zrange [0:6]
+set view 60, 300   # Adjust 3D viewing angle
+set pm3d           # Enable smooth 3D coloring
+set palette defined (0 "blue", 1 "green", 2 "yellow", 3 "red") # Custom color gradient
+set hidden3d       # Hides lines behind surfaces
+set xyplane relative 0
+
+splot "data.txt" using 1:2:3 index 3 with pm3d title "|Γ({/:Italic z})|"

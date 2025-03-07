@@ -1,0 +1,9 @@
+set terminal pdfcairo enhanced color font "Helvetica,12" size 5in,3in
+set output "lngamma.pdf"
+set tics out
+set title "Log Gamma function"
+set xlabel "{/:Italic x}"   # Italicizes 'x' without LaTeX syntax
+set ylabel "{/:Italic y} = ln[Γ({/:Italic x})]"  # Ensures proper rendering
+
+plot "data.txt" using 1:2 index 2 with lines title "ln[Γ({/:Italic x})]", \
+     "lngamma_data.txt" using 1:2 with points pt 7 ps 0.5 lc rgb "red" title "Data Points"

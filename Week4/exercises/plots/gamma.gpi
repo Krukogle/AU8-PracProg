@@ -1,0 +1,9 @@
+set terminal pdfcairo enhanced color font "Helvetica,12" size 5in,3in
+set output "gamma.pdf"
+set tics out
+set title "Gamma function"
+set xlabel "{/:Italic x}"   # Italicizes 'x' without LaTeX syntax
+set ylabel "{/:Italic y} = Γ(x)"  # Ensures proper rendering
+
+plot "data.txt" using 1:2 index 1 with lines title "Γ(x)", \
+     "gamma_data.txt" using 1:2 with points pt 7 ps 0.5 lc rgb "red" title "Data Points"
