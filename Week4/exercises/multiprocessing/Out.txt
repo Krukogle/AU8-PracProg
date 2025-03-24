@@ -1,0 +1,24 @@
+Harmonic sum of 100000000 terms and 1 threads is 18.9978964138526
+Harmonic sum of 100000000 terms using Parallel.For is 13.0590353880069
+Harmonic sum of 100000000 terms using LINQ is 18.9978964138528
+real 2.25
+user 18.68
+sys 0.00
+Harmonic sum of 100000000 terms and 2 threads is 18.997896413853
+Harmonic sum of 100000000 terms using Parallel.For is 13.1671689457096
+Harmonic sum of 100000000 terms using LINQ is 18.9978964138527
+real 2.71
+user 24.16
+sys 0.00
+Harmonic sum of 100000000 terms and 3 threads is 18.9978964138495
+Harmonic sum of 100000000 terms using Parallel.For is 12.8384051016111
+Harmonic sum of 100000000 terms using LINQ is 18.9978964138522
+real 2.55
+user 21.96
+sys 0.00
+Harmonic sum of 100000000 terms and 4 threads is 18.9978964138499
+Harmonic sum of 100000000 terms using Parallel.For is 12.9147255128328
+Harmonic sum of 100000000 terms using LINQ is 18.9978964138511
+real 1.41
+user 19.61
+sys 0.00
