@@ -1,0 +1,15 @@
+set terminal pdfcairo enhanced color font 'Helvetica,10'
+set output 'timing.pdf'
+set xlabel 'Matrix Size N'
+set ylabel 'Time [ms]'
+set title 'QR Factorization Timing'
+
+# Define a cubic function for fitting
+f(x) = a*x**3
+
+# Fit f(x) to your timing data from timing.txt
+fit f(x) 'timing.txt' using 1:2 via a
+
+# Plot the data points and the cubic fit line
+plot 'timing.txt' using 1:2 with points pt 7 ps 0.5 lc rgb "red" title 'Timing data', \
+     f(x) using 1:2 index 1 with lines title sprintf("Fit: %g * N^3", a)
