@@ -1,10 +1,6 @@
-# Source files
-CODE = $(filter %.cs,$^)
-LIBS = $(addprefix -reference:,$(filter %.dll,$^)) -r:System.Numerics.dll
-
-# Compilation rules
-MKEXE = mcs -target:exe -out:$@ $(LIBS) $(CODE)
-MKLIB = mcs -target:library -out:$@ $(LIBS) $(CODE)
+# Libraries
+libPath = ../../Classes/
+LIBRARIES = $(wildcard $(libPath)*.cs)
 
 # Default target builds Out.txt and timing.pdf
 all: Out.txt timing.pdf
@@ -13,17 +9,9 @@ all: Out.txt timing.pdf
 Out.txt: main.exe
 	mono $< > $@
 
-# Compile libraries
-vector.dll: vector.cs
-	$(MKLIB)
-matrix.dll: matrix.cs vector.dll
-	$(MKLIB)
-QR.dll: QR.cs matrix.dll vector.dll
-	$(MKLIB)
-
 # Compile the main program
-main.exe: main.cs matrix.dll vector.dll QR.dll
-	$(MKEXE)
+main.exe: main.cs $(LIBRARIES)
+	mcs main.cs $(LIBRARIES) -out:main.exe
 
 # Generate the PDF plot using gnuplot
 timing.pdf: plot.gpi timing.txt

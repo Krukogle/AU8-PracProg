@@ -1,4 +1,7 @@
+namespace qr_class{
 using System;
+using vector_class;
+using matrix_class;
 using static System.Console;
 
 // ---------- PART A ---------- //
@@ -67,4 +70,5 @@ public static class QR{
         }
         return R_inv*Q.transpose();
     }
+}
 }

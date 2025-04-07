@@ -1,4 +1,7 @@
 using System;
+using vector_class;
+using matrix_class;
+using qr_class;
 using System.IO;
 using System.Diagnostics;
 

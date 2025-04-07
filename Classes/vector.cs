@@ -4,6 +4,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using static System.Math;
 using static System.Console;
+namespace vector_class{
 public partial class vector{
 
 private double[] data;
@@ -149,3 +150,4 @@ public bool approx(vector o){
 	}
 
 }//vector
+}

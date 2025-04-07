@@ -1,6 +1,8 @@
+namespace matrix_class{
 // (C) 2020 Dmitri Fedorov; License: GNU GPL v3+; no warranty.
 using System;
 using static System.Math;
+using vector_class;
 using System.Runtime.CompilerServices;
 public partial class matrix{
 
@@ -240,4 +242,4 @@ public bool approx(matrix B,double acc=1e-6, double eps=1e-6){
 }
 
 }//matrix
-
+}
