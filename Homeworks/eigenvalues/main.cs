@@ -1,11 +1,28 @@
 using System;
 using System.IO;
+using System.Diagnostics;
 using vector_class;
 using matrix_class;
 using jacobi_class;
 
 public class Program{
-    public static void Main(){
+
+    // Hamiltonian builder for part B
+    public static matrix Hamiltonian(int npoints, double dr, vector r){
+        matrix H = new matrix(npoints, npoints);
+        for(int i = 0; i < npoints - 1; i++){
+            H[i, i] = -2.0 * (-0.5 / dr / dr);
+            H[i, i + 1] = 1.0 * (-0.5 / dr / dr);
+            H[i + 1, i] = 1.0 * (-0.5 / dr / dr);
+        }
+        H[npoints - 1, npoints - 1] = -2.0 * (-0.5 / dr / dr);
+        for(int i = 0; i < npoints; i++){
+            H[i, i] += -1.0/r[i];
+        }
+        return H;
+    }
+
+    public static void Main(string[] args){
 
         // ---------- PART A ---------- //
         Console.WriteLine("---------- PART A ----------");
@@ -56,6 +73,7 @@ public class Program{
         Console.WriteLine();
         Console.WriteLine("Is V * D * V^T equal to A within a tolerance?");
         Console.WriteLine(A_check.approx(A));
+        Console.WriteLine();
 
         // Check that V^T * V = V * V^T = I
         matrix I_check1 = V.transpose() * V;
@@ -71,6 +89,140 @@ public class Program{
         Console.WriteLine("Is V * V^T equal to I within a tolerance?");
         Console.WriteLine(I_check2.approx(matrix.id(n)));
         Console.WriteLine();
+
+
+
+        // ---------- PART B ---------- //
+        Console.WriteLine("---------- PART B ----------");
+        
+        // Set default values of rmax and dr
+        double rmax = 10.0;
+        double dr = 0.3;
+
+        // Extract new values of rmax and dr from command line arguments if provided
+        for(int i = 0; i < args.Length; i++){
+            if(args[i] == "-rmax"){
+                rmax = double.Parse(args[i + 1]);
+            }
+            if(args[i] == "-dr"){
+                dr = double.Parse(args[i + 1]);
+            }
+        }
+
+        // Build the Hamiltonian matrix
+        int npoints = (int)(rmax / dr) - 1;
+        Console.WriteLine($"Recieved inputs: rmax = {rmax}, dr = {dr} => npoints = {npoints}");
+        vector r = new vector(npoints);
+        for(int i = 0; i < npoints; i++){
+            r[i] = dr * (i + 1);
+        }
+
+        matrix H = Hamiltonian(npoints, dr, r);
+
+        // Extract eigenvalues and eigenvectors
+        (vector w2, matrix V2) = Jacobi.cyclic(H);
+        w2.print("Eigenvalue vector of H (w) from Jacobi method:");
+        Console.WriteLine();
+
+        // ----- Convergence check of rmax and dr ----- //
+        Console.WriteLine("Convergence check of rmax and dr ...");
+        
+        // Keep rmax fixed and vary dr
+        using(StreamWriter writer = new StreamWriter("varying_dr.txt")){
+            for(double dr_test = 0.05; dr_test <= 0.5; dr_test += 0.01){
+                int npoints_test = (int)(rmax / dr_test) - 1;
+                vector r_test = new vector(npoints_test);
+                for(int i = 0; i < npoints_test; i++){
+                    r_test[i] = dr_test * (i + 1);
+                }
+                matrix H_test = Hamiltonian(npoints_test, dr_test, r_test);
+                vector w_test = Jacobi.cyclic(H_test).Item1;
+                writer.WriteLine($"{dr_test:f10} {w_test[0]:f10}");
+            }
+        }
+
+        // Keep dr fixed and vary rmax
+        using(StreamWriter writer = new StreamWriter("varying_rmax.txt")){
+            for(double rmax_test = 5.0; rmax_test <= 20.0; rmax_test += 0.5){
+                int npoints_test = (int)(rmax_test / dr) - 1;
+                vector r_test = new vector(npoints_test);
+                for(int i = 0; i < npoints_test; i++){
+                    r_test[i] = dr * (i + 1);
+                }
+                matrix H_test = Hamiltonian(npoints_test, dr, r_test);
+                vector w_test = Jacobi.cyclic(H_test).Item1;
+                writer.WriteLine($"{rmax_test:f10} {w_test[0]:f10}");
+            }
+        }
+        Console.WriteLine("Convergence check files varying_dr.txt and varying_rmax.txt written.\n");
+
+        // ----- Wave function check ----- //
+        double N = 1.0 / Math.Sqrt(dr); // Normalization constant
+        Console.WriteLine("Wave function check ...");
+
+        // n=1
+        Console.WriteLine("Comparing the n=1 approximated wave function with the analytical result ...");
+        using(StreamWriter writer = new StreamWriter("radial_n1.txt")){
+            for(int i = 0; i < npoints; i++){
+                double f0_num = N * V2[i, 0];
+                double f0_ana = 2.0 * r[i] * Math.Exp(-r[i]);
+                writer.WriteLine($"{r[i]:f10} {f0_num:f10} {f0_ana:f10}");
+            }
+        }
+        Console.WriteLine("Comparison complete. Results written to radial_n1.txt and plotted as radial_n1.pdf.\n");
+
+        // n=2
+        Console.WriteLine("Comparing the n=2 approximated wave function with the analytical result ...");
+        using(StreamWriter writer = new StreamWriter("radial_n2.txt")){
+            for(int i = 0; i < npoints; i++){
+                double f1_num = N * V2[i, 1];
+                double f1_ana = 1.0 / Math.Sqrt(2.0) * (r[i] / 2.0 - 1.0) * r[i] * Math.Exp(-r[i] / 2.0);
+                writer.WriteLine($"{r[i]:f10} {f1_num:f10} {f1_ana:f10}");
+            }
+        }
+        Console.WriteLine("Comparison complete. Results written to radial_n2.txt and plotted as radial_n2.pdf.\n");
+
+        // n=3
+        Console.WriteLine("Comparing the n=3 approximated wave function with the analytical result ...");
+        using(StreamWriter writer = new StreamWriter("radial_n3.txt")){
+            for(int i = 0; i < npoints; i++){
+                double f2_num = N * V2[i, 2];
+                double f2_ana = 2.0/(27.0*Math.Sqrt(3.0)) * r[i] * (27.0 - 18.0*r[i] + 2.0*r[i]*r[i]) * Math.Exp(-r[i] / 3.0);
+                writer.WriteLine($"{r[i]:f10} {f2_num:f10} {f2_ana:f10}");
+            }
+        }
+        Console.WriteLine("Comparison complete. Results written to radial_n3.txt and plotted as radial_n3.pdf.\n");
+
+
+
+        // ---------- PART C ---------- //
+        Console.WriteLine("---------- PART C ----------");
+        Console.WriteLine("Checking that the Jacobi diagonalization scales as O(n^3) ...");
+
+        // Do as in "Linear Equations" homework
+        using(StreamWriter writer = new StreamWriter("timing.txt")){
+            for(int npoints_test = 10; npoints_test <= 200; npoints_test += 10){
+                vector r_test = new vector(npoints_test);
+                for(int i = 0; i < npoints_test; i++){
+                    r_test[i] = dr * (i + 1);
+                }
+                matrix H_test = Hamiltonian(npoints_test, dr, r_test);
+                
+                // Start the stopwatch
+                Stopwatch stopwatch = new Stopwatch();
+                stopwatch.Start();
+
+                // Perform Jacobi diagonalization
+                Jacobi.cyclic(H_test);
+
+                // Stop the stopwatch
+                stopwatch.Stop();
+
+                // Write the size and time to a .txt file
+                writer.WriteLine($"{npoints_test} {stopwatch.Elapsed.TotalMilliseconds}");
+            }
+        }
+        Console.WriteLine("Check complete. Timing data written to timing.txt and plotted as timing.pdf.");
 
     }
 }

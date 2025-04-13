@@ -176,7 +176,7 @@ public class Program{
 
         // ---------- PART C ---------- //
         Console.WriteLine("---------- PART C ----------");
-        // ----- Time the QR decomposition of varying size square matrices and export the results to a .data file ----- //
+        // ----- Time the QR decomposition of varying size square matrices and export the results to a .txt file ----- //
         for(int N=5; N<=250; N+=5){
             matrix A_timing = new matrix(N, N);
             for(int i=0; i<N; i++){
@@ -195,7 +195,7 @@ public class Program{
             // Stop the stopwatch
             stopwatch.Stop();
 
-            // Write the size and time to a .data file
+            // Write the size and time to a .txt file
             using(var sw = new StreamWriter("timing.txt", true)){
                 sw.WriteLine($"{N} {stopwatch.Elapsed.TotalMilliseconds}");
             }
