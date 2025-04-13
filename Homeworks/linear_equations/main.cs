@@ -200,7 +200,7 @@ public class Program{
                 sw.WriteLine($"{N} {stopwatch.Elapsed.TotalMilliseconds}");
             }
         }
-        Console.WriteLine("Timing data written to timing.txt");
+        Console.WriteLine("Timing data written to timing.txt and plotted as timing.pdf");
 
     }
 }
