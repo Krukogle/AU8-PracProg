@@ -1,0 +1,18 @@
+---------- Part A ----------
+Doing linear interpolation and integration of cos(x) from 0 to 10 ...
+Linear interpolation data written to linear.txt.
+The plot 'linear.pdf' shows the linear spline interpolation and integration of cos(x) from 0 to 10.
+
+---------- Part B ----------
+Doing quadratic interpolation, derivative, and integration of sin(x) from 0 to 10 ...
+Quadratic interpolation data written to quadratic.txt.
+The plot 'quadratic.pdf' shows the quadratic spline interpolation, derivative, and integration of sin(x) from 0 to 10.
+
+---------- Part C ----------
+Doing cubic interpolation, derivative, and integration of sin(x) from 0 to 10 ...
+Cubic interpolation data written to cubic.txt.
+The plot 'cubic.pdf' shows the cubic spline interpolation, derivative, and integration of sin(x) from 0 to 10.
+
+Comparing my cubic spline with the built-in cubic spline from gnuplot ...
+Cubic spline comparison data written to cubic_compare.txt.
+The plot 'cubic_compare.pdf' shows the comparison of my cubic spline with the built-in cubic spline from gnuplot.
