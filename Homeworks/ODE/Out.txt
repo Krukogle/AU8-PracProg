@@ -1,0 +1,22 @@
+---------- PART A ----------
+Debugging/testing the Runge-Kutta stepper with y'' = -y for x in [0, 10] ...
+Runge-Kutta data written to simple_HO.txt.
+
+Reproducing the oscillator with friction, θ''(t) + b*θ'(t) + c*sin(θ(t)) = 0 ...
+Runge-Kutta data written to damped_HO.txt.
+
+The plot 'oscillators.pdf' shows the Runge-Kutta method applied to the simple and damped harmonic oscillator.
+
+---------- PART B ----------
+Applying the Runge-Kutta method to planetary orbits, i.e. u''(φ) + u(φ) = 1 + εu(φ)^2, for φ in [0, 10π] ...
+
+Newtonian circular motion: ε = 0, u(0) = 1, u'(0) = 0 ...
+Runge-Kutta data written to circular.txt.
+
+Newtonian elliptical motion: ε = 0, u(0) = 1, u'(0) = -0.5 ...
+Runge-Kutta data written to elliptical.txt.
+
+Relativistic precession: ε = 0.01, u(0) = 1, u'(0) = -0.5 ...
+Runge-Kutta data written to relativistic.txt.
+
+The plot 'orbits.pdf' shows the Runge-Kutta method applied to the planetary orbits.
