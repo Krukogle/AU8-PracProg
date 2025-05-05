@@ -6,5 +6,54 @@ Testing integrator on provided examples from 0 to 1 within absolute and relative
     ∫ ln(x)/√(x) dx = -3.9999
 
 Investigating the error function ...
+
 Plotting the error function from -3 to 3 with integral representation ...
-Comparing erf(1) to the analytical solution as a function of absolute accuracy ...
+Error function data written to erf.txt.
+The plot 'erf.pdf' shows the comparison of the approximated and exact error function.
+
+Comparing erf(1) to the analytical solution as a function of absolute accuracy (eps = 0) ...
+Error function data for erf(1) written to erf1.txt.
+The plot 'erf1.pdf' shows the convergence of the approximated error function to the analytical solution.
+
+---------- PART B ----------
+Comparing Clenshaw-Curtis integration with the standard integration method using provided examples ...
+    ∫ 1/√(x) dx = 2.0000 (Clenshaw-Curtis)
+     - Number of function calls: 8
+     - Number of function calls (standard): 4286
+
+    ∫ ln(x)/√(x) dx = -3.9999 (Clenshaw-Curtis)
+     - Number of function calls: 48
+     - Number of function calls (standard): 4302
+
+Switching over to Python and comparing with SciPy's integration routine ...
+    ∫ 1/√(x) dx = 2.000 (SciPy)
+      - Number of calls: 231
+
+    ∫ ln(x)/√(x) dx = -4.000 (SciPy)
+      - Number of calls: 315
+
+
+Switching back to C# ...
+
+Testing integrator with infinite limits ...
+
+The Gaussian integral from -∞ to ∞ ...
+    ∫ exp(-x²) dx = 1.7724
+     - Number of function calls: 40
+     The correct result is √π. Is this result correct within a tolerance? True.
+
+The integral of 1/(1 + x²) from 0 to ∞ ...
+    ∫ 1/(1 + x²) dx = 1.5709
+     - Number of function calls: 20
+     The correct result is π/2. Is this result correct within a tolerance? True.
+
+Switching over to Python and comparing with SciPy's integration routine ...
+    ∫ exp(-x²) dx = 1.772 (SciPy)
+      - Number of calls: 150
+
+    ∫ 1/(1 + x²) dx = 1.571 (SciPy)
+      - Number of calls: 15
+
+
+Switching back to C# ...
+
