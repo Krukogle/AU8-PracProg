@@ -1,6 +1,9 @@
 using System;
 using System.IO;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using System.Collections.Concurrent;
+using System.Linq;
 using vector_class;
 using matrix_class;
 using jacobi_class;
@@ -197,31 +200,42 @@ public class Program{
 
         // ---------- PART C ---------- //
         Console.WriteLine("---------- PART C ----------");
-        Console.WriteLine("Checking that the Jacobi diagonalization scales as O(n^3) ...");
+        Console.WriteLine("Checking that the Jacobi diagonalization scales as O(n^3) with multiprocessing ...");
 
-        // Do as in "Linear Equations" homework
-        using(StreamWriter writer = new StreamWriter("timing.txt")){
-            for(int npoints_test = 10; npoints_test <= 200; npoints_test += 10){
-                vector r_test = new vector(npoints_test);
-                for(int i = 0; i < npoints_test; i++){
-                    r_test[i] = dr * (i + 1);
-                }
-                matrix H_test = Hamiltonian(npoints_test, dr, r_test);
-                
-                // Start the stopwatch
-                Stopwatch stopwatch = new Stopwatch();
-                stopwatch.Start();
+        // Build the list of sizes 10,20,…,200
+        var sizes = Enumerable.Range(1, 20).Select(i => i * 10);
 
-                // Perform Jacobi diagonalization
-                Jacobi.cyclic(H_test);
+        // Thread-safe bag to collect (N, time)
+        var results = new ConcurrentBag<(int N, double TimeMs)>();
 
-                // Stop the stopwatch
-                stopwatch.Stop();
+        Parallel.ForEach(sizes, npoints_test =>
+        {
+            // Build r_test and H_test just as before
+            var r_test = new vector(npoints_test);
+            for (int i = 0; i < npoints_test; i++)
+                r_test[i] = dr * (i + 1);
 
-                // Write the size and time to a .txt file
-                writer.WriteLine($"{npoints_test} {stopwatch.Elapsed.TotalMilliseconds}");
+            var H_test = Hamiltonian(npoints_test, dr, r_test);
+
+            // Time the diagonalization
+            var sw = Stopwatch.StartNew();
+            Jacobi.cyclic(H_test);
+            sw.Stop();
+
+            // Add to bag
+            results.Add((npoints_test, sw.Elapsed.TotalMilliseconds));
+        });
+
+        // Write out in ascending N
+        using (var writer = new StreamWriter("timing.txt"))
+        {
+            // OrderBy uses 'p' so we don't shadow 'r'
+            foreach (var entry in results.OrderBy(p => p.N))
+            {
+                writer.WriteLine($"{entry.N} {entry.TimeMs}");
             }
         }
+
         Console.WriteLine("Check complete. Timing data written to timing.txt and plotted as timing.pdf.");
 
     }
