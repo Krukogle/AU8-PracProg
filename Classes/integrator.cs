@@ -5,7 +5,7 @@ public class Integrator{
 
     // Recursive open-quadrature adaptive integrator of f(x) on [a,b] with the required absolute or relative goal
     // The integrator has to use a higher order quadrature to estimate the integral and an imbedded lower order quadrature to estimate the local error.
-    public static (double, int) integrate(
+    public static (double, int, double) integrate(
         Func<double, double> f,
         double a,
         double b,
@@ -43,12 +43,12 @@ public class Integrator{
         double q = (f1 + f2 + f3 + f4) / 4 * h;   // lower order rule
         double err = Math.Abs(Q - q);
         if(err <= acc + eps * Math.Abs(Q)){
-            return (Q, N_calls);
+            return (Q, N_calls, err);
         }
         else{
-            var (leftResult, leftCalls) = integrate(f, a, (a + b) / 2, acc / Math.Sqrt(2), eps, f1, f2);
-            var (rightResult, rightCalls) = integrate(f, (a + b) / 2, b, acc / Math.Sqrt(2), eps, f3, f4);
-            return (leftResult + rightResult, leftCalls + rightCalls);
+            var (leftResult, leftCalls, leftErr) = integrate(f, a, (a + b) / 2, acc / Math.Sqrt(2), eps, f1, f2);
+            var (rightResult, rightCalls, rightErr) = integrate(f, (a + b) / 2, b, acc / Math.Sqrt(2), eps, f3, f4);
+            return (leftResult + rightResult, leftCalls + rightCalls, Math.Sqrt(leftErr * leftErr + rightErr * rightErr));
         }
     }
 
@@ -71,7 +71,7 @@ public class Integrator{
     }
 
     // Adaptive integrator with the Clenshaw–Curtis variable transformation
-    public static (double, int) integrate_cc(
+    public static (double, int, double) integrate_cc(
         Func<double, double> f,
         double a,
         double b,

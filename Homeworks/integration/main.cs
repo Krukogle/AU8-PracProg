@@ -23,6 +23,11 @@ public static class Program{
 	return false;
 	}
 
+    // Inverse cotangent function (from StackOverflow)
+    public static double Acot(double x){
+        return (x < 0 ? -Math.PI/2 : Math.PI/2) - Math.Atan(x);
+    }
+
     // Main function
     public static void Main(string[] args){
 
@@ -164,6 +169,18 @@ public static class Program{
 
         // Including the integration error
         Console.WriteLine("Including the integration error ...\n");
+
+        // Testing with the Cleo integral from -1 to 1
+        Console.WriteLine("Testing with the Cleo integral from -1 to 1 ...");
+        Func<double, double> test7 = (double x) => 1/x * Math.Sqrt((1+x) / (1-x)) * Math.Log((2*x*x+2*x+1) / (2*x*x-2*x+1));
+        var res7 = Integrator.integrate(test7, -1.0, 1.0);
+        Console.WriteLine($"∫ 1/x * √((1+x)/(1-x)) * ln((2x²+2x+1)/(2x²-2x+1)) dx = {res7.Item1:F4} ± {res7.Item3:F4}");
+        double cleo_exact = 4 * Math.PI * Acot(Math.Sqrt((1 + Math.Sqrt(5)) / 2));
+        Console.WriteLine($"The exact value of the Cleo integral is: {cleo_exact:F4}");
+        Console.WriteLine(
+            $"Is this result correct within a tolerance? " +
+            $"{approx(res7.Item1, cleo_exact, acc: 0.001)}."
+        );
 
     }
 }
