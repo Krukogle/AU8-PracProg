@@ -1,0 +1,17 @@
+set terminal pdf
+set output 'circle_errors.pdf'
+set logscale x
+set xlabel '{/:Italic N}'
+set ylabel 'Error'
+set title 'Unit circle area approximation errors'
+set grid
+
+# Define a root function for fitting
+f(x) = a * x**(-0.5)
+
+# Fit f(x) to data from circle_errors.txt
+fit f(x) 'circle_errors.txt' using 1:3 via a
+
+plot 'circle_errors.txt' using 1:2 with lines title 'Estimated error', \
+     'circle_errors.txt' using 1:3 with lines title 'Actual error', \
+     'circle_errors.txt' using ($1):(f($1)) with lines title sprintf('Fit: %g * N^{-0.5}', a)

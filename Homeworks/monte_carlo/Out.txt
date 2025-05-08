@@ -1,0 +1,22 @@
+---------- PART A ----------
+Testing plain Monte-Carlo routine on the area of the unit circle ...
+Estimated area of the unit circle (should be π): 3.144864 ± 0.005345
+Actual error: 0.003271.
+
+Results of error comparison written to circle_errors.txt
+The plot 'circle_errors.pdf' shows the estimated error and the actual error as a function of N.
+It also shows that the actual error scales as 1/√N.
+
+Testing plain Monte-Carlo routine on ∫ 1/(1-cos(x)cos(y)cos(z)) dx/π dy/π dz/π from 0 to π ...
+Result (should be 1.393203): ∫ 1/(1-cos(x)cos(y)cos(z)) dx/π dy/π dz/π = 1.387858 ± 0.007168
+
+---------- PART B ----------
+Testing quasi-random Monte-Carlo routine on the area of the unit circle ...
+Estimated area of the unit circle (should be π): 3.141552 ± 0.001161
+Actual error: 0.000041. This is ~80 times smaller than the actual plain Monte-Carlo error.
+
+---------- PART C ----------
+Testing recursive stratisfied Monte-Carlo routine on the area of the unit circle ...
+Estimated area of the unit circle (should be π): 3.157148 ± 0.000098.
+Actual error: 0.015555. This is ~0 times smaller than the actual plain Monte-Carlo error.
+
