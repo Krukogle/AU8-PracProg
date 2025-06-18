@@ -1,0 +1,9 @@
+set terminal pdf
+set output 'convergence_eps.pdf'
+set logscale x
+set xlabel 'eps'
+set ylabel '{/:Italic E}_0'
+set title 'Convergence of relative tolerance'
+set grid
+
+plot 'convergence_eps.txt' using 1:2 with lines title ''

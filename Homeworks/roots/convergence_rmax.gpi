@@ -1,0 +1,8 @@
+set terminal pdf
+set output 'convergence_rmax.pdf'
+set xlabel '{/:Italic r}_{max}'
+set ylabel '{/:Italic E}_0'
+set title 'Convergence of {/:Italic r}_{max}'
+set grid
+
+plot 'convergence_rmax.txt' using 1:2 with lines title ''

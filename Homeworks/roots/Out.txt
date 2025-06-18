@@ -1,0 +1,66 @@
+---------- PART A ----------
+Newton's method with numerical Jacobian and back-tracking line-search
+
+----- Debugging root-finding routine with some simple one- and two-dimensional functions -----
+    f(x) = x² - 2 (roots at x = ±√2)
+    Root found at x =     -1.417 
+    Root found at x =      1.417 
+    Are these correct within a tolerance of 1%? True
+
+    f(x,y) = x² + y² - 3 (roots at x = ±√3, y = 0)
+    Roots found at (x, y) =     -1.732          0 
+    Roots found at (x, y) =      1.732          0 
+    Are these correct within a tolerance of 1%? True
+
+----- Moving on to extremum(s) of provided functions -----
+    The Rosenbrock's valley function f(x,y) = (1-x)² + 100*(y-x²)²
+    According to Wikipedia, the global minimum is at (1, 1²) = (1, 1)
+    Extremum found at (x,y) =     0.7569      0.571 
+    Is this correct within a tolerance of 1%? False
+
+    The Himmelblau's function f(x,y) = (x² + y - 11)² + (x + y² - 7)²
+    According to Wikipedia, it has one local maximum and four local minima
+        1. Local maximum at (x, y) = (-0.270845, -0.923039)
+        Extremum found at (x, y) =    -0.2708     -0.923 
+        Is this correct within a tolerance of 1%? True
+
+        2. Local minimum at (x, y) = (3, 2)
+        Extremum found at (x, y) =          3          2 
+        Is this correct within a tolerance of 1%? True
+
+        3. Local minimum at (x, y) = (-2.805118, 3.131312)
+        Extremum found at (x, y) =     -2.805      3.131 
+        Is this correct within a tolerance of 1%? True
+
+        4. Local minimum at (x, y) = (-3.77931, -3.283186)
+        Extremum found at (x, y) =     -3.779     -3.283 
+        Is this correct within a tolerance of 1%? True
+
+        5. Local minimum at (x, y) = (3.584428, -1.848126)
+        Extremum found at (x, y) =      3.584     -1.848 
+        Is this correct within a tolerance of 1%? True
+
+---------- PART B ----------
+Bound states of hydrogen atom with shooting method for boundary value problems.
+We have -(1/2)f'' -(1/r)f = Ef with f(rₘᵢₙ)=rₘᵢₙ-rₘᵢₙ² and f(rₘₐₓ)=0
+The solution with a given energy is F_E(r). We find this function with the Runge-Kutta method
+Defining y[0] = f and y[1] = f', we have y[0]' = y[1] and y[1]' = -2 * (E + 1 / r) * y[0]
+
+Finding the energy E for the hydrogen atom with rmax = 8.0...
+Energy found: E = -0.499975106981664
+The correct result is E = -0.5
+Is this correct within a tolerance of 1%? True
+
+----- Moving on to convergence studies -----
+Checking convergence of rmax...
+Convergence data for rmax saved to 'convergence_rmax.txt'. The plot 'convergence_rmax.pdf' shows the results.
+
+Checking convergence of rmin...
+Convergence data for rmin saved to 'convergence_rmin.txt'. The plot 'convergence_rmin.pdf' shows the results.
+
+Checking convergence of acc (absolute accuracy of ODE solver)...
+Convergence data for acc saved to 'convergence_acc.txt'. The plot 'convergence_acc.pdf' shows the results.
+
+Checking convergence of eps (relative accuracy of ODE solver)...
+Convergence data for eps saved to 'convergence_eps.txt'. The plot 'convergence_eps.pdf' shows the results.
+

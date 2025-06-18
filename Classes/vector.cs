@@ -35,7 +35,7 @@ public static implicit operator vector (double[] a){ return new vector(a); }
 public static implicit operator double[] (vector v){ return v.data; }
 
 public void print
-(string s="",string format="{0,10:g3} ",TextWriter file=null){
+(string s="",string format="{0,10:g4} ",TextWriter file=null){
 	if(file==null)file = System.Console.Out;
 	file.Write(s);
 	for(int i=0;i<size;i++) file.Write(format,this[i]);
@@ -148,6 +148,22 @@ public bool approx(vector o){
 		if(!approx(this[i],o[i]))return false;
 	return true;
 	}
+
+public void append(double x){
+    var oldSize = this.size;
+    var newData = new double[oldSize + 1];
+    for(int i = 0; i < oldSize; i++) newData[i] = this[i];
+    newData[oldSize] = x;
+    this.data = newData;
+}
+
+public void append(vector a){
+    var oldSize = this.size;
+    var newData = new double[oldSize + a.size];
+    for(int i = 0; i < oldSize; i++) newData[i] = this[i];
+    for(int i = 0; i < a.size; i++) newData[oldSize + i] = a[i];
+    this.data = newData;
+}
 
 }//vector
 }

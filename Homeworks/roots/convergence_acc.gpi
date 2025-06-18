@@ -1,0 +1,9 @@
+set terminal pdf
+set output 'convergence_acc.pdf'
+set logscale x
+set xlabel 'acc'
+set ylabel '{/:Italic E}_0'
+set title 'Convergence of absolute tolerance'
+set grid
+
+plot 'convergence_acc.txt' using 1:2 with lines title ''
