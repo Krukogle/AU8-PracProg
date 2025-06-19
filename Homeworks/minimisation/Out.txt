@@ -1,0 +1,67 @@
+----------- PART A ----------
+Newton's method with numerical gradient, numerical Hessian matrix and back-tracking linesearch.
+
+The Rosenbrock's valley function f(x,y) = (1-x)² + 100*(y-x²)²
+According to Wikipedia, the global minimum is at (1, 1²) = (1, 1)...
+Initial guess for Rosenbrock's valley function:
+         2          2 
+Minimum of Rosenbrock's valley function found at:
+         1          1 
+Number of iterations: 14
+Is this correct within a tolerance of 1%? True
+
+The Himmelblau's function f(x,y) = (x² + y - 11)² + (x + y² - 7)²
+According to Wikipedia, it has one local maximum and four local minima.
+We will try to find the minimum at (x, y) = (3, 2)...
+Initial guess for Himmelblau's function:
+         5          5 
+Minimum of Himmelblau's function found at:
+         3          2 
+Number of iterations: 6
+Is this correct within a tolerance of 1%? True
+
+----------- PART B ----------
+Higgs boson discovery.
+
+Fitting the Breit-Wigner function by minimising the deviation function D(m, Γ, A)...
+Initial guess for Higgs boson fit parameters (m, Γ, A):
+       125          3         10 
+Minimum of the deviation function found at (m, Γ, A):
+       126      2.086      9.876 
+Number of iterations: 8
+Fit data for Higgs saved to 'higgs_fit.txt'. The plot 'higgs.pdf' shows the results.
+
+----------- PART C ----------
+Part A, but with central differences for the gradient and Hessian matrix.
+
+Rosenbrock's valley function with central differences for gradient and Hessian matrix...
+Minimum of Rosenbrock's valley function found at (central differences):
+         1          1 
+Number of iterations: 14
+Is this correct within a tolerance of 1%? True
+
+Himmelblau's function with central differences for gradient and Hessian matrix...
+Minimum of Himmelblau's function found at (central differences):
+         3          2 
+Number of iterations: 6
+Is this correct within a tolerance of 1%? True
+So the central method works :)
+To better compare the methods, we do the test again but starting very far away from the minimum...
+
+Initial guess for Rosenbrock's valley function (far from minimum):
+       100        100 
+Minimum of Rosenbrock's valley function found at (forward differences):
+         1          1 
+Minimum of Rosenbrock's valley function found at (central differences):
+         1          1 
+Number of iterations (forward differences): 450
+Number of iterations (central differences): 231
+
+Initial guess for Himmelblau's function (far from minimum):
+     1e+04      1e+04 
+Minimum of Himmelblau's function found at (forward differences):
+         3          2 
+Minimum of Himmelblau's function found at (central differences):
+         3          2 
+Number of iterations (forward differences): 25
+Number of iterations (central differences): 24

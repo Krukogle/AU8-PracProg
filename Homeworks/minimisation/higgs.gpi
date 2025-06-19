@@ -1,0 +1,9 @@
+set terminal pdf
+set output 'higgs.pdf'
+set xlabel '{/:Italic E} [GeV]'
+set ylabel '{/:Italic σ}({/:Italic E}) [arb. units]'
+set title 'Higgs data and fit comparison'
+set grid
+
+plot 'higgs.txt' using 1:2:3 with yerrorbars title "Data", \
+     'higgs_fit.txt' using 1:2 with lines title "Fit"
