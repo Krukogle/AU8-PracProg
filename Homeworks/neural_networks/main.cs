@@ -107,13 +107,14 @@ public static class Program
         // Testing the antiderivative of g(x)
         Console.WriteLine("Testing the neural network on the antiderivative of g(x)...");
         vector Gs = G(xs_train);
+        double shift = G(-1.0) - network.antiderivative(-1.0);   // Shift to match the constant of integration
         using (StreamWriter writer = new StreamWriter("antiderivatives.txt"))
         {
             for (int i = 0; i < n_points; i++)
             {
                 double x = xs_train[i];
                 double y_true = Gs[i];
-                double y_pred = network.antiderivative(x);
+                double y_pred = network.antiderivative(x) + shift;
                 writer.WriteLine($"{x} {y_true} {y_pred}");
             }
         }
