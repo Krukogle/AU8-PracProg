@@ -2,7 +2,7 @@ set terminal pdf
 set output 'antiderivatives.pdf'
 set xlabel '{/:Italic x}'
 set ylabel '{/:Italic y}'
-set title 'Neural network second derivative predictions vs actual values'
+set title 'Neural network antiderivative predictions vs actual values'
 set grid
 
 plot 'antiderivatives.txt' using 1:2 with lines title 'True', \
