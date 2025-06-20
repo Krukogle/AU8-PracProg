@@ -17,6 +17,3 @@ The plot 'second_derivatives.pdf' shows the comparison of the true second deriva
 Testing the neural network on the antiderivative of g(x)...
 Comparison of antiderivatives written to 'antiderivatives.txt'.
 The plot 'antiderivatives.pdf' shows the comparison of the true antiderivative and the ANN response.
-
-Since the antiderivative is not unique, the ANN response may differ from the true antiderivative by a constant.
-
