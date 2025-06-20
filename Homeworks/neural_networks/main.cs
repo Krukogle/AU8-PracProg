@@ -118,8 +118,7 @@ public static class Program
             }
         }
         Console.WriteLine("Comparison of antiderivatives written to 'antiderivatives.txt'.");
-        Console.WriteLine("The plot 'antiderivatives.pdf' shows the comparison of the true antiderivative and the ANN response.\n");
-        Console.WriteLine("Since the antiderivative is not unique, the ANN response may differ from the true antiderivative by a constant.\n");
+        Console.WriteLine("The plot 'antiderivatives.pdf' shows the comparison of the true antiderivative and the ANN response.");
 
     }
 }
