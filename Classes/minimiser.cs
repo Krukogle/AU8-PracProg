@@ -50,7 +50,7 @@ namespace minimiser_class
             vector gφ = gradient(φ, x);
             for (int j = 0; j < n; j++)
             {
-                double dxj = (1 + Math.Abs(x[j])) * Math.Pow(2, -13);
+                double dxj = (1 + Math.Abs(x[j])) * Math.Pow(2, -26);
                 x[j] += dxj;
                 vector dgφ = gradient(φ, x) - gφ;
                 for (int i = 0; i < n; i++)
@@ -68,7 +68,7 @@ namespace minimiser_class
             vector gφ = gradient(φ, x);
             for (int j = 0; j < n; j++)
             {
-                double dxj = (1 + Math.Abs(x[j])) * Math.Pow(2, -13);
+                double dxj = (1 + Math.Abs(x[j])) * Math.Pow(2, -26);
                 x[j] += dxj;
                 vector dgφp = gradient(φ, x) - gφ;
                 x[j] -= 2 * dxj;
@@ -106,6 +106,44 @@ namespace minimiser_class
                 x += λ * dx;
             }
             throw new Exception($"Newton's method did not converge within {max_iter} iterations.");
+        }
+
+        // Newton's method for minimisation with analytical gradient
+        public static (vector, int) newton_analytical(
+            Func<vector, double> φ,
+            Func<vector, vector> grad,
+            vector x,
+            double acc = 1e-3,
+            int max_iter = 2500,
+            bool central = false
+        )
+        {
+            int iter = 0;
+            while (iter < max_iter)
+            {
+                vector g = grad(x);
+                if (g.norm() < acc) return (x, iter);   // job done
+                matrix H = central
+                    ? hessian_central(φ, x)
+                    : hessian(φ, x);
+                (matrix Q, matrix R) = QR.decomp(H);
+                vector dx = QR.solve(Q, R, -g);
+                double λ = 1.0;
+                double λmin = 1.0 / 1024.0;
+                double φx = φ(x);
+                while (true)
+                {
+                    vector x_new = x + λ * dx;
+                    if (φ(x_new) < φx || λ < λmin)
+                    {
+                        x = x_new;  // good step or accept anyway
+                        break;
+                    }
+                    λ /= 2.0;
+                }
+                iter++;
+            }
+            return (x, iter);
         }
 
     }

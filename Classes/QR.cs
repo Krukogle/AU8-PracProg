@@ -25,19 +25,22 @@ public static class QR{
     }
 
     // "solve": Solve QRx=b for b given
-    public static vector solve(matrix Q, matrix R, vector b){
-        // We solve Rx=y, where y=Q^Tb by back-substitution
-        vector y = Q.transpose()*b;
+    public static vector solve(matrix Q, matrix R, vector b)
+    {
+        vector y = Q.transpose() * b;
         vector x = new vector(R.size1);
-        for(int i=R.size1-1; i>=0; i--){
-            x[i] = y[i];
-            for(int j=i+1; j<R.size1; j++){
-                x[i] = x[i] - R[i,j]*x[j];
+        for (int i = R.size1 - 1; i >= 0; i--)
+        {
+            double sum = 0;
+            for (int j = i + 1; j < R.size1; j++)
+            {
+                sum += R[i, j] * x[j];
             }
-            x[i] = x[i]/R[i,i];
+            x[i] = (y[i] - sum) / R[i, i];
         }
         return x;
     }
+
 
     // "det": Determinant of the matrix R
     public static double det(matrix R){

@@ -1,0 +1,22 @@
+----------- PART A ----------
+Training a neural network to approximate the function g(x) = cos(5x-1)exp(-x²) on [-1,1]...
+Number of iterations: 52
+Training completed.
+Comparison values written to 'values.txt'.
+The plot 'values.pdf' shows the comparison of the true function and the ANN response.
+
+----------- PART B ----------
+Testing the neural network on the first derivative of g(x)...
+Comparison of derivatives written to 'derivatives.txt'.
+The plot 'derivatives.pdf' shows the comparison of the true derivative and the ANN response.
+
+Testing the neural network on the second derivative of g(x)...
+Comparison of second derivatives written to 'second_derivatives.txt'.
+The plot 'second_derivatives.pdf' shows the comparison of the true second derivative and the ANN response.
+
+Testing the neural network on the antiderivative of g(x)...
+Comparison of antiderivatives written to 'antiderivatives.txt'.
+The plot 'antiderivatives.pdf' shows the comparison of the true antiderivative and the ANN response.
+
+Since the antiderivative is not unique, the ANN response may differ from the true antiderivative by a constant.
+
