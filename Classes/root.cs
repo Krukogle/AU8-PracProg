@@ -28,7 +28,13 @@ public static class RootFinder
     }
 
     // Newton's method with numerical Jacobian and back-tracking line-search
-        public static vector newton(Func<vector, vector> f, vector start, double acc = 1e-2, vector δx = null)
+    public static vector newton(
+        Func<vector, vector> f,
+        vector start,
+        double acc = 1e-2,
+        int max_iter = 1000,
+        vector δx = null
+    )
     {
         vector x = start.copy();
         vector fx = f(x);
@@ -39,12 +45,11 @@ public static class RootFinder
         vector step;
 
         double λmin = 1.0 / 128;
-        int max_iter = 100;
         int iter = 0;
 
         do {
             if (fx.norm() < acc) break;
-            if (iter++ >= max_iter) break;
+            if (iter++ >= max_iter) throw new Exception($"Newton's method did not converge within {max_iter} iterations.");
 
             matrix J = jacobian(f, x, fx, δx);
             (matrix Q, matrix R) = QR.decomp(J);

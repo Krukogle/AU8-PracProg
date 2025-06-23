@@ -1,0 +1,49 @@
+-----------------------------------------------------------------------------------------------------------------
+          Practical programming and numerical methods 2025 examination project by Jakob Krukow Mogensen
+          Project 11: Symmetric row/column update of a size-n symmetric eigenvalue problem
+-----------------------------------------------------------------------------------------------------------------
+
+PROJECT DESCRIPTION:
+Given the diagonal elements of the matrix D, the vector u, and the integer p,
+calculate the eigenvalues of the matrix A using O(n^2) operations.
+
+The matrix A is defined as:
+A = D + e u^T + u e^T, where
+    D is an (n x n) diagonal matrix,
+    e is a size-n unit vector in index p,
+    and u is a size-n vector with the p'th element equal to zero.
+
+The secular function is defined as:
+    f(λ) = -(d_p - λ) + ∑_{k ≠ p} u_k^2 / (d_k - λ).
+The eigenvalues of the matrix A are the roots of the secular function.
+There are n - 1 poles of the secular function: λ ∈ {d_k} for k ≠ p.
+Since f(λ) is continuous and strictly increasing between the poles,
+there must be exactly one root in each interval between the poles (n - 2 roots), as well as one to the left of the leftmost pole and one to the right of the rightmost pole.
+
+-----------------------------------------------------------------------------------------------------------------
+
+Random matrix size n ∈ [2, 10]:  3
+Random index p ∈ [0, 2]:         2
+
+Randomly generated diagonal elements of 3x3 matrix D:
+    -19.14     -13.57      25.62 
+
+Unit vector e for randomly chosen p = 2:
+         0          0          1 
+
+Random vector u:
+    -33.38    -0.2756          0 
+
+Updated matrix A:
+     -19.1          0      -33.4 
+         0      -13.6     -0.276 
+     -33.4     -0.276       25.6 
+
+Poles of the secular function f(λ):
+    -19.14     -13.57 
+
+Initial guesses for the eigenvalues λ0s:
+    -52.52     -16.36      19.81 
+
+Eigenvalues of the updated matrix A:
+    -36.95      43.42      43.42 

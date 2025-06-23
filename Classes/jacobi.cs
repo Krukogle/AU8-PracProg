@@ -50,7 +50,7 @@ public static class Jacobi{
                 double a_pp_new = c * c * a_pp - 2 * s * c * a_pq + s * s * a_qq;
                 double a_qq_new = s * s * a_pp + 2 * s * c * a_pq + c * c * a_qq;
 
-                // Doration if the change is significant
+                // Do rotation if the change is significant
                 if(a_pp_new != a_pp || a_qq_new != a_qq){
                     changed = true;
                     timesJ(A, p, q, theta);

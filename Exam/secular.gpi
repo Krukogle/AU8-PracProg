@@ -1,0 +1,11 @@
+set terminal pdf
+set output 'secular.pdf'
+set xlabel '{/:Italic λ}'
+set ylabel 'f({/:Italic λ})'
+set yrange [-500:500]
+set title 'Secular function of symmetric row/column update'
+set grid
+
+plot 'secular.txt' using 1:2 with lines title '', \
+     'eigenvalues.txt' using 1:2 with points pt 7 ps 0.5 lc rgb "red" title 'Eigenvalues', \
+     'poles.txt' using 1:2 with points pt 7 ps 0.5 lc rgb "blue" title 'Poles', \
