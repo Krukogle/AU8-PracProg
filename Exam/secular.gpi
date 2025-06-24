@@ -2,7 +2,7 @@ set terminal pdf
 set output 'secular.pdf'
 set xlabel '{/:Italic λ}'
 set ylabel 'f({/:Italic λ})'
-set yrange [-500:500]
+set yrange [-250:250]
 set title 'Secular function of symmetric row/column update'
 set grid
 

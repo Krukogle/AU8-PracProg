@@ -82,11 +82,30 @@ public static vector operator/(vector v, vector w){
 	for(int i=0;i<v.size;i++)r[i]=v[i]/w[i];
 	return r; }
 
-public double dot(vector o){
-	double sum=0;
-	for(int i=0;i<size;i++)sum+=this[i]*o[i];
-	return sum;
+public static bool operator<(vector v, vector u)
+{
+	for (int i = 0; i < v.size; i++)
+	{
+		if (v[i] >= u[i]) return false;
 	}
+	return true;
+}
+
+public static bool operator>(vector v, vector u)
+{
+	for (int i = 0; i < v.size; i++)
+	{
+		if (v[i] <= u[i]) return false;
+	}
+	return true;
+}
+
+public double dot(vector o)
+		{
+			double sum = 0;
+			for (int i = 0; i < size; i++) sum += this[i] * o[i];
+			return sum;
+		}
 public static double operator%(vector a,vector b){
 	return a.dot(b);
 	}

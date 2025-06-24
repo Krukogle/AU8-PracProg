@@ -1,0 +1,15 @@
+set terminal pdfcairo enhanced color font 'Helvetica,10'
+set output 'timing.pdf'
+set xlabel 'Matrix Size n'
+set ylabel 'Time [ms]'
+set title 'Timing of row/column update eigenvalue'
+
+# Define a parabola function for fitting
+f(x) = a*x**2
+
+# Fit f(x) to your timing data from timing.txt
+fit f(x) 'timing.txt' using 1:2 via a
+
+# Plot the data points and the cubic fit line
+plot 'timing.txt' using 1:2 with points pt 7 ps 0.5 lc rgb "red" title 'Timing data', \
+     'timing.txt' using ($1):(f($1)) with lines title sprintf("Fit: %g * n^2", a)
