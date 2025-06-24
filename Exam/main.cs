@@ -15,34 +15,6 @@ public static class Program
     public static void Main(string[] args)
     {
 
-        Console.WriteLine("-----------------------------------------------------------------------------------------------------------------");
-        Console.WriteLine("          Practical programming and numerical methods 2025 examination project by Jakob Krukow Mogensen");
-        Console.WriteLine("          Project 11: Symmetric row/column update of a size-n symmetric eigenvalue problem");
-        Console.WriteLine("-----------------------------------------------------------------------------------------------------------------\n");
-
-        // ----- Description ----- //
-        Console.WriteLine("PROJECT DESCRIPTION:");
-        Console.WriteLine("Given the diagonal elements of the matrix D, the vector u, and the integer p,");
-        Console.WriteLine("calculate the eigenvalues of the matrix A using O(n²) operations.\n");
-
-        Console.WriteLine("The matrix A is defined as:");
-        Console.WriteLine("A = D + e u^T + u e^T, where");
-        Console.WriteLine("    D is an (n x n) diagonal matrix,");
-        Console.WriteLine("    e is a size-n unit vector in index p,");
-        Console.WriteLine("    and u is a size-n vector with the p'th element equal to zero.\n");
-
-        Console.WriteLine("The secular function is defined as:");
-        Console.WriteLine("    f(λ) = -(d_p - λ) + ∑_{k ≠ p} u_k^2 / (d_k - λ).");
-        Console.WriteLine("The eigenvalues of the matrix A are the roots of the secular function.");
-        Console.WriteLine("There are n - 1 poles of the secular function: λ ∈ {d_k} for k ≠ p.");
-        Console.WriteLine("Since f(λ) is continuous and strictly increasing between the poles,");
-        Console.WriteLine("there must be exactly one root in each interval between the poles (n - 2 roots), as well as one to the left of the leftmost pole and one to the right of the rightmost pole.\n");
-
-        Console.WriteLine("However, when doing this numerically, there is a risk of the eigenvalues being very close to the poles.");
-        Console.WriteLine("This means that the Newton step size easily overshoots into the next interval, and the eigenvalue is not found.");
-        Console.WriteLine("To avoid this, an optional upper and lower bound argument was added to the Newton root-finding method.\n");
-        Console.WriteLine("-----------------------------------------------------------------------------------------------------------------\n");
-
         // ----- Execute the eigenvalue update method for demonstration ----- //
         Console.WriteLine("Executing the eigenvalue update method with randomly generated parameters for demonstration...\n");
 

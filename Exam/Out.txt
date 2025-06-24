@@ -1,56 +1,28 @@
------------------------------------------------------------------------------------------------------------------
-          Practical programming and numerical methods 2025 examination project by Jakob Krukow Mogensen
-          Project 11: Symmetric row/column update of a size-n symmetric eigenvalue problem
------------------------------------------------------------------------------------------------------------------
-
-PROJECT DESCRIPTION:
-Given the diagonal elements of the matrix D, the vector u, and the integer p,
-calculate the eigenvalues of the matrix A using O(n²) operations.
-
-The matrix A is defined as:
-A = D + e u^T + u e^T, where
-    D is an (n x n) diagonal matrix,
-    e is a size-n unit vector in index p,
-    and u is a size-n vector with the p'th element equal to zero.
-
-The secular function is defined as:
-    f(λ) = -(d_p - λ) + ∑_{k ≠ p} u_k^2 / (d_k - λ).
-The eigenvalues of the matrix A are the roots of the secular function.
-There are n - 1 poles of the secular function: λ ∈ {d_k} for k ≠ p.
-Since f(λ) is continuous and strictly increasing between the poles,
-there must be exactly one root in each interval between the poles (n - 2 roots), as well as one to the left of the leftmost pole and one to the right of the rightmost pole.
-
-However, when doing this numerically, there is a risk of the eigenvalues being very close to the poles.
-This means that the Newton step size easily overshoots into the next interval, and the eigenvalue is not found.
-To avoid this, an optional upper and lower bound argument was added to the Newton root-finding method.
-
------------------------------------------------------------------------------------------------------------------
-
 Executing the eigenvalue update method with randomly generated parameters for demonstration...
 
-Random matrix size n ∈ [2, 10]:  6
-Random index p ∈ [0, 5]:         4
+Random matrix size n ∈ [2, 10]:  4
+Random index p ∈ [0, 3]:         3
 
-Randomly generated diagonal elements of 6x6 matrix D:
-    -37.62     -25.83     -9.417      0.555      29.27      49.09 
+Randomly generated diagonal elements of 4x4 matrix D:
+    -34.58     -23.14       7.48      19.17 
 
 Randomly generated vector u with p'th element set to zero:
-    -42.27     -14.39     -12.14      19.36          0      50.08 
+    -26.19      6.497      26.81          0 
 
-Unit vector e for randomly chosen p = 4:
-         0          0          0          0          1          0 
+Unit vector e for randomly chosen p = 3:
+         0          0          0          1 
 
 Poles of the secular function f(λ):
-    -37.62     -25.83     -9.417      0.555      49.09 
+    -34.58     -23.14       7.48 
 
 Bounds of the intervals for the eigenvalues:
-    -179.4     -37.62     -25.83     -9.417      0.555      49.09      190.9 
+    -110.7     -34.58     -23.14       7.48      83.55 
 
 Initial guesses for the eigenvalues λ0s:
-    -108.5     -31.72     -17.62     -4.431      24.82        120 
+    -72.62     -28.86     -7.831      45.52 
 
 Eigenvalues of the updated matrix A:
-     -66.8     -27.04     -12.07     -4.243      17.01       99.2 
+    -47.73     -23.65     -6.284       46.6 
 
 Exporting the secular function, eigenvalues, and poles to files...
     Secular function exported to 'secular.txt'.
